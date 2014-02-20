@@ -1,0 +1,497 @@
+\documentclass[compress]{beamer}
+
+\usepackage{ctex}
+
+% beamer
+\PassOptionsToPackage{subsection=false}{beamerouterthememiniframes}
+\usetheme{Berlin}
+\usecolortheme{dolphin}
+\setbeamerfont{title}{size=\huge}
+%\setbeamertemplate{caption}{\insertcaption}
+%\setbeamertemplate{caption label separator}{}
+\setbeamertemplate{itemize item}{$\bullet$}
+%\usefonttheme{structuresmallcapsserif}
+%\usepackage{times}
+%\usepackage[T1]{fontenc}
+\setbeamertemplate{bibliography item}[text]
+%gets rid of bottom navigation bars
+\setbeamertemplate{footline}[page number]{}
+%gets rid of navigation symbols
+\setbeamertemplate{navigation symbols}{}
+%\beamertemplatenavigationsymbolsempty
+%\setbeamertemplate{frametitle}[default][center]
+\setbeamertemplate{frametitle}
+{
+    \begin{center}
+        \insertframetitle
+        \par
+    \end{center}
+}
+
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd{\slideentry}{\advance\beamer@xpos by1\relax}{}{}{}
+\def\beamer@subsectionentry#1#2#3#4#5{\advance\beamer@xpos by1\relax}%
+\makeatother
+
+% toc
+\AtBeginSection[] { 
+    \begin{frame} 
+        \frametitle{Outline} 
+        \tableofcontents[currentsection, hideallsubsections] 
+    \end{frame} 
+}
+
+%footnote
+\usepackage{url}
+\newcommand{\footurl}[1]{\footnote{\url{#1}}}
+
+%code
+\usepackage{minted}
+
+% figure
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{caption}
+\captionsetup{labelformat=empty,labelsep=none}
+\usepackage{subcaption}
+\usepackage[multidot]{grffile}
+
+% cross over
+\usepackage[normalem]{ulem}
+
+% shorthand
+\newcommand{\fname}[1]{\texttt{#1}}
+
+\title{Re-search v2}
+\author{answeror@gmail.com}
+\date{2013-10-15}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{Research = Re-search}
+    \begin{figure}
+        \centering
+        \includegraphics[width=\textwidth]{images/library.jpg}
+        \caption{You are not the Laughing Man\ldots}
+    \end{figure}
+\end{frame}
+
+\section{基本搜索}
+
+\subsection{基本技术}
+
+\begin{frame}{\insertsubsection}
+    \begin{itemize}[<+->]
+        \item `CTRL` + `F`
+        \item \textcolor{red}{Google}\footnote{not 谷歌 or 百度} it! (\url{http://google.com/ncr})
+    \end{itemize}
+\end{frame}
+
+\subsection{搜索技巧}
+
+\begin{frame}{\insertsubsection}
+    \begin{columns}[T]
+        \begin{column}{0.5\textwidth}
+            \begin{itemize}[<+->]
+                \item 搜索指定域名: \\ \vspace{0.1cm} \textbf{奖学金 \textcolor{blue}{site}:grs.zju.edu.cn}
+                \item 搜索指定文件类型: \\ \vspace{0.1cm} \textbf{svm \textcolor{blue}{filetype}:m}
+                \item 搜索图片:
+                \item 更多技巧: \\ \vspace{0.1cm} \url{http://goo.gl/u1ug9}
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            \visible<3>{\includegraphics[width=\textwidth]{images/image-search.png}}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\subsection{网页历史}
+
+\begin{frame}
+    \begin{figure}
+        \includegraphics[width=0.9\textwidth]{images/404}
+        \caption{并不是所有404都能翻得过去\ldots}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{\insertsubsection}
+    \begin{columns}
+        \begin{column}{0.3\textwidth}
+        \end{column}
+        \begin{column}{0.7\textwidth}
+            \begin{itemize}[<+->]
+                \item Google Cache
+                \item Google Translate
+                \item \url{http://archive.org}
+            \end{itemize}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\subsection{Stackoverflow}
+
+\begin{frame}{\insertsubsection}
+    \begin{itemize}[<+->]
+        \item 高质量的技术问答.
+        \item 姊妹站点: math, tex, stats, serverfault, superuser\ldots
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{\insertsubsection}
+    \begin{columns}[T]
+        \begin{column}{0.4\textwidth}
+            \includegraphics[width=\textwidth]{images/mine}
+        \end{column}
+        \begin{column}{0.6\textwidth}
+            \textbf{小型可穿戴式动作捕获装置}
+            \par
+            \vspace{1em}
+            去年10月10日晚上, 因为第二天需要演示实验室的一个遗留项目, 从stackoverflow上挖出来一个传感器聚合算法.
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\section{文本搜索}
+
+\begin{frame}{Warning}
+    本节内容并不适用于所有研究方向. 有些研究方向只需要专心读某几个期刊/会议的文章即可.
+\end{frame}
+
+\subsection{WOS}
+
+\begin{frame}[t]{\insertsubsection}
+    \begin{itemize}[<+->]
+        \item WOS关键词检索
+
+            \only<1>{
+                \begin{center}
+                    \includegraphics[width=0.7\textwidth]{images/wos.search.png}
+                \end{center}
+            }
+        \item 添加约束条件
+
+            \only<2>{
+                \begin{center}
+                    \includegraphics[width=0.4\textwidth]{images/wos.refine.png}
+                \end{center}
+            }
+        \item 导出纯文本
+
+            \only<3>{
+                \begin{center}
+                    \includegraphics[width=0.7\textwidth]{images/wos.export.png}
+                \end{center}
+            }
+    \end{itemize}
+\end{frame}
+
+\subsection{HistCite}
+
+\begin{frame}[t]{\insertsubsection}
+    \begin{itemize}[<+->]
+        \item 导入HistCite(History of Cite)
+
+            \only<1>{
+                \begin{center}
+                    \includegraphics[width=0.7\textwidth]{images/histcite.png}
+                \end{center}
+            }
+        \item 筛选综述类文献(按\textbf{CR}排序)
+
+            \only<2>{
+                \begin{center}
+                    \includegraphics[width=0.7\textwidth]{images/histcite.cr.png}
+
+                    \tiny{综述类文献通常带有"review", "survey", "state of art"等字眼.}
+                \end{center}
+            }
+        \item 筛选领域内重要文献(按\textbf{LCS}排序)
+
+            \only<3>{
+                \begin{center}
+                    \includegraphics[width=0.7\textwidth]{images/histcite.lcs.png}
+                \end{center}
+            }
+        \item \textbf{作图}
+
+            \only<4>{
+                \begin{center}
+                    \includegraphics[width=0.7\textwidth]{images/histcite.make-graph.png}
+                \end{center}
+            }
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{\insertsubsection}
+    \begin{figure}
+        \centering
+        \includegraphics[width=\textwidth]{images/histcite.graph.png}
+        \caption{从图中可以看出69是一篇开创性的工作.}
+    \end{figure}
+\end{frame}
+
+\subsection{pypaper}
+
+\begin{frame}
+    \begin{center}
+    如果我们要的文章不在WOS怎么办?
+    \end{center}
+\end{frame}
+
+\begin{frame}{Google Scholar}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.8\textwidth]{images/scholar.png}
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+    \begin{center}
+    但是Google Scholar不提供排序功能.
+    \end{center}
+\end{frame}
+
+\begin{frame}[fragile]{bibtex}
+    \begin{listing}[H]
+        \begin{minted}[
+            fontsize=\footnotesize,
+            frame=lines,
+            framesep=2mm
+        ]{bibtex}
+@Book{abramowitz+stegun,
+ author    = "Milton {Abramowitz} and Irene A. {Stegun}",
+ title     = "Handbook of Mathematical Functions with
+              Formulas, Graphs, and Mathematical Tables",
+ publisher = "Dover",
+ year      =  1964,
+ address   = "New York",
+ edition   = "ninth Dover printing, tenth GPO printing"
+}
+        \end{minted}
+    \end{listing}
+\end{frame}
+
+\begin{frame}{\insertsubsection}
+    Pypaper\footurl{https://github.com/Answeror/pypaper}是一套Python脚本, 用于:
+
+    \begin{itemize}
+        \item 自动批量下载IEEE和ACM的bibtex和PDF\footnote{用户手册没写好.}.
+        \item 自动根据bibtex批量抓取Google Scholar信息.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{\insertsubsection}
+    \begin{itemize}[<+->]
+        \item 使用tor\footurl{https://www.torproject.org/}动态切换ip.
+        \item 使用加权编辑距离\footurl{https://github.com/Answeror/lit\#introduction}从搜索结果中选择最佳匹配.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{\insertsubsection}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.8\textwidth]{images/motion-texture.png}
+        \caption{加权编辑距离的应用场景(不同的编辑操作, 乃至操作的位置(词首/词尾)应具有不同的权重)}
+    \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{\insertsubsection}
+    \begin{listing}[H]
+        \begin{minted}[
+            fontsize=\footnotesize,
+            frame=lines,
+            framesep=2mm
+        ]{bat}
+python scripts\google_fetch.py -h
+python scripts\google_query.py -h
+        \end{minted}
+        \caption{usage}
+    \end{listing}
+
+    \begin{listing}[H]
+        \begin{minted}[
+            fontsize=\footnotesize,
+            frame=lines,
+            framesep=2mm
+        ]{bat}
+python scripts\google_fetch.py -d all.db all.bib
+python scripts\google_query.py -d all.db -o out.txt
+python scripts\google_query.py -d all.db -o out.txt review.bib
+        \end{minted}
+        \caption{pypaper example}
+    \end{listing}
+\end{frame}
+
+\begin{frame}[fragile]{\insertsubsection}
+    \begin{listing}[H]
+        \begin{minted}[
+            fontsize=\footnotesize,
+            frame=lines,
+            framesep=2mm
+        ]{jinja}
+01436 Human motion analysis: A review
+00996 Anomaly detection: A survey
+00441 Machine recognition of human activities: A survey
+00269 A survey of mobile phone sensing
+00138 Assessment of physical activity: a critical appraisal
+00118 Human motion tracking for rehabilitation—A survey
+00107 Activity identification using body-mounted sensors—a ...
+00052 Situation identification techniques in pervasive comp...
+00031 Activity recognition using inertial sensing for healt...
+00014 Advances in physical activity monitoring and lifestyl...
+00013 The use of wearable inertial motion sensors in human ...
+00002 Physical activity monitoring by use of accelerometer-...
+00002 A survey on human activity recognition using wearable...
+        \end{minted}
+        \caption{out.txt}
+    \end{listing}
+\end{frame}
+
+\subsection{后续工作}
+
+\begin{frame}{\insertsubsection}
+    \begin{itemize}[<+->]
+        \item 看看前面整理出来的重要文章一般都发在哪里, 把相应的期刊/会议拿到WOS中搜一搜, 加入到HistCite里分析.
+        \item 直接去作者主页看他的publication list.
+    \end{itemize}
+\end{frame}
+
+\subsection{文献搜索/管理(Mendeley)}
+
+\begin{frame}{\insertsubsection}
+    \begin{columns}
+        \begin{column}{0.3\textwidth}
+        \end{column}
+        \begin{column}{0.7\textwidth}
+            萝卜白菜, 各有所爱\ldots
+
+            \pause
+
+            \begin{itemize}[<+->]
+                \item PDF内容搜索
+                \item 层级标签
+                \item 跨平台同步
+                \item bibtex导出
+                \item \sout{Word插件}\footnote{latex please}
+            \end{itemize}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}{\insertsubsection}
+    \begin{center}
+        不要用mendeley记笔记. Mendeley的中文搜索极差.
+    \end{center}
+\end{frame}
+
+\subsection{Evernote}
+
+\begin{frame}
+    \begin{center}
+        \huge{\alert{不可搜索的笔记等于没记.}}
+    \end{center}
+\end{frame}
+
+\begin{frame}{\insertsubsection}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.8\textwidth]{images/evernote}
+        \caption{集中存放所有笔记}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{\insertsubsection}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.8\textwidth]{images/tagging}
+        \caption{做好标签}
+    \end{figure}
+\end{frame}
+
+\section{本地搜索}
+
+\subsection{Everything}
+
+\begin{frame}{\insertsubsection}
+    \begin{figure}
+        \centering
+        \includegraphics[width=\textwidth]{images/everything.png}
+        \caption{文件命名: lowercase-and-dash.dot-sep-logical-part.ext}
+    \end{figure}
+\end{frame}
+
+\subsection{gn}
+
+\begin{frame}{\insertsubsection}
+    Gn\footurl{http://file.answeror.com/gn-0.1.0-win32.msi}是一个已打包的Python程序, 用于重命名文件. 使用时将(若干)目标文件拖动到程序图标上即可.
+
+    \begin{center}
+        C++ Coding Standard.pdf $\to$ cpp-coding-standard.pdf
+    \end{center}
+\end{frame}
+
+\begin{frame}[fragile]{配置文件}
+    \begin{listing}[H]
+        \begin{minted}[
+            fontsize=\footnotesize,
+            frame=lines,
+            framesep=2mm
+        ]{jinja}
+[cC]\+\+;cpp
+[cC]#;csharp
+        \end{minted}
+        \caption{$\sim$/.gn}
+    \end{listing}
+\end{frame}
+
+\subsection{lit}
+
+\begin{frame}{F**k ALT+TAB \& WIN+R}
+    \begin{center}
+        窗口切换和程序执行应该也是\textcolor{red}{可搜索的}.
+        \pause
+        \par
+        Launcher, Switcher, Switcheroo\ldots\footnote{\url{http://superuser.com/q/53573/233118}}
+        \pause
+        \par
+        \vspace{1em}
+        lit\footnote{\url{https://github.com/Answeror/lit}}
+    \end{center}
+\end{frame}
+
+\begin{frame}{\insertsubsection}
+    \begin{figure}
+        \centering
+        \includegraphics[trim=10cm 4cm 10cm 9cm,clip,scale=0.5]{images/lit.go.png}
+        \caption{窗口切换}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{\insertsubsection}
+    \begin{figure}
+        \centering
+        \includegraphics[trim=10cm 4cm 10cm 9cm,clip,scale=0.5]{images/lit.run.png}
+        \caption{程序运行}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{\insertsubsection}
+    \begin{figure}
+        \centering
+        \includegraphics[scale=0.5]{images/noot}
+        \caption{加权编辑距离匹配}
+    \end{figure}
+\end{frame}
+
+\section{}
+
+\begin{frame}
+    \begin{center}
+        \huge{Thanks}
+    \end{center}
+\end{frame}
+
+\end{document}

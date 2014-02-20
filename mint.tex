@@ -1,0 +1,34 @@
+\usepackage{minted}
+
+%http://tex.stackexchange.com/q/113168
+\makeatletter
+% avoid space tokens since we're in horizontal mode
+\renewcommand\mint[3][]{%
+  \DefineShortVerb{#3}%
+  \minted@resetoptions
+  \setkeys{minted@opt}{#1}%
+  \SaveVerb[aftersave={%
+    \UndefineShortVerb{#3}%
+    \minted@savecode{\FV@SV@minted@verb}%
+    \minted@pygmentize{#2}%
+    \DeleteFile{\jobname.pyg}}]{minted@verb}#3}
+\renewcommand\minted@savecode[1]{%
+  \immediate\openout\minted@code\jobname.pyg\relax
+  \immediate\write\minted@code{#1}%
+  \immediate\closeout\minted@code}
+\renewcommand\minted@pygmentize[2][\jobname.pyg]{%
+  \def\minted@cmd{pygmentize -l #2 -f latex -F tokenmerge
+    \minted@opt{gobble} \minted@opt{texcl} \minted@opt{mathescape}
+    \minted@opt{linenos} -P "verboptions=\minted@opt{extra}"
+    -o \jobname.out.pyg #1}%
+  \immediate\write18{\minted@cmd}%
+  \ifthenelse{\equal{\minted@opt@bgcolor}{}}%
+   {}%
+   {\begin{minted@colorbg}{\minted@opt@bgcolor}}%
+  \input{\jobname.out.pyg}%
+  \ifthenelse{\equal{\minted@opt@bgcolor}{}}%
+   {}%
+   {\end{minted@colorbg}}%
+  \DeleteFile{\jobname.out.pyg}}
+\makeatother
+\RecustomVerbatimEnvironment{Verbatim}{BVerbatim}{}

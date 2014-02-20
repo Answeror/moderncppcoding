@@ -1,0 +1,152 @@
+\documentclass[compress]{beamer}
+
+\usepackage{ctex}
+
+% beamer
+\PassOptionsToPackage{subsection=false}{beamerouterthememiniframes}
+\setbeamerfont{title}{size=\huge}
+\setbeamertemplate{itemize item}{$\bullet$}
+\setbeamertemplate{bibliography item}[text]
+%gets rid of bottom navigation bars
+\setbeamertemplate{footline}[page number]{}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{frametitle}{
+    \begin{center}
+        \insertframetitle
+        \par
+    \end{center}
+}
+
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd{\slideentry}{\advance\beamer@xpos by1\relax}{}{}{}
+\def\beamer@subsectionentry#1#2#3#4#5{\advance\beamer@xpos by1\relax}%
+\makeatother
+
+% toc
+\AtBeginSection[]{
+    \begin{frame}{Outline}
+        \begin{columns}
+            \begin{column}{0.4\textwidth}
+            \end{column}
+            \begin{column}{0.6\textwidth}
+                \tableofcontents[currentsection, hideallsubsections] 
+            \end{column}
+        \end{columns}
+    \end{frame} 
+}
+
+%footnote
+\usepackage{url}
+\newcommand{\footurl}[1]{\footnote{\url{#1}}}
+
+%code
+\input{mint}
+
+% table
+\usepackage{tabu}
+\usepackage{booktabs}
+\newcolumntype{R}{>{\raggedleft\arraybackslash}X}
+\newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
+% This is needed because raggedright in table elements redefines \\:
+\newcommand{\PreserveBackslash}[1]{\let\temp=\\#1\let\\=\temp}
+\let\PBS=\PreserveBackslash
+\usepackage[normalem]{ulem}
+\newcommand{\textsubscr}[1]{\ensuremath{_{\scriptsize\textrm{#1}}}}
+
+% figure
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{caption}
+\captionsetup{labelformat=empty,labelsep=none}
+\usepackage{subcaption}
+\usepackage[multidot]{grffile}
+
+% cross over
+\usepackage[normalem]{ulem}
+
+% shorthand
+\newcommand{\fname}[1]{\texttt{#1}}
+
+\title{Seminar}
+\author{answeror@gmail.com}
+\date{2013-11-30}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\section{上阶段工作}
+
+\subsection{工作目标}
+
+\begin{frame}{工作目标}
+    \begin{center}
+        \ra{1.3}
+        \begin{tabu} to \textwidth {lR}
+            \toprule
+            目标 & 预期完成时间 \\
+            \midrule
+            PAMAP2上的性能测试 & 2013-09-13 \\
+            在线算法的C++实现 & 2013-09-13 \\
+            总控流程的PC实现 & 2013-09-20 \\
+            安卓移植 & 2013-09-27 \\
+            基于部位方法的proposal & 2013-10-11 \\
+            运动传感和表面肌电数据库重构 & 2013-11-01 \\
+            \bottomrule
+        \end{tabu}
+    \end{center}
+\end{frame}
+
+\subsection{完成情况}
+
+\begin{frame}{完成情况}
+    \begin{enumerate}[1)]
+        \item 完成走/跑/静止/驾驶行为识别测试和QDA版本移植.
+        \item 完成摔倒检测测试.
+        \item 完成驾驶人和驾驶行为识别初步测试.
+        \item 移植了numpy的基本功能到C++(numcpp).
+        \item 特征提取库在线处理, bug修复.
+    \end{enumerate}
+\end{frame}
+
+\begin{frame}{项目延期原因}
+    \begin{enumerate}[1)]
+        \item 原始数据处理问题.
+        \item androface提交数: 138(2013-01-27至2013-08-21)
+        \item androact提交数: 634(2013-08-24至2013-11-29)
+    \end{enumerate}
+\end{frame}
+
+\section{下阶段计划}
+
+\begin{frame}{工作目标}
+    \begin{center}
+        \ra{1.3}
+        \begin{tabu} to \textwidth {lR}
+            \toprule
+            目标 & 预期完成时间 \\
+            \midrule
+            完成驾驶数据处理和驾驶人识别 & 2013-12-07 \\
+            完成摔倒检测移植 & 2013-12-07 \\
+            完成跑步计数整合 & 2013-12-07 \\
+            完成驾驶人识别移植 & 2013-12-14 \\
+            浙江省公益项目申请 & 2013-12-18 \\
+            驾驶人识别的proposal & ? \\
+            基于部位方法的proposal & ? \\
+            运动传感和表面肌电数据库重构 & 寒假前 \\
+            \bottomrule
+        \end{tabu}
+    \end{center}
+\end{frame}
+
+\section{心得}
+
+\begin{frame}{心得}
+    \begin{enumerate}[1)]
+        \item 建议所有同学从现在开始使用Python.
+        \item 原始数据处理是最关键的步骤, 其文档和测试应最为详细.
+    \end{enumerate}
+\end{frame}
+
+\end{document}
