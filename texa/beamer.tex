@@ -1,0 +1,33 @@
+% beamer
+\PassOptionsToPackage{subsection=false}{beamerouterthememiniframes}
+\setbeamerfont{title}{size=\huge}
+\setbeamertemplate{itemize item}{$\bullet$}
+\setbeamertemplate{bibliography item}[text]
+%gets rid of bottom navigation bars
+\setbeamertemplate{footline}[page number]{}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{frametitle}{
+    \begin{center}
+        \insertframetitle
+        \par
+    \end{center}
+}
+
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd{\slideentry}{\advance\beamer@xpos by1\relax}{}{}{}
+\def\beamer@subsectionentry#1#2#3#4#5{\advance\beamer@xpos by1\relax}%
+\makeatother
+
+% toc
+\AtBeginSection[]{
+    \begin{frame}{Outline}
+        \begin{columns}
+            \begin{column}{0.3\textwidth}
+            \end{column}
+            \begin{column}{0.7\textwidth}
+                \tableofcontents[currentsection, hideallsubsections] 
+            \end{column}
+        \end{columns}
+    \end{frame} 
+}
