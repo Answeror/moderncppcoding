@@ -7,4 +7,5 @@ np::real score(
     // compare y_pred and y_true
 }
 ...
-score(QDA(), X, y_true);
+score(classifier_ml<QDA>(qda), X, y_true);
+score(classifier_yaml<AdaBoost>(adaboost), X, y_true);

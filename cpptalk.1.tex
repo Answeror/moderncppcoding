@@ -2,20 +2,8 @@
 
 \usepackage{ctex}
 
-% beamer
-\PassOptionsToPackage{subsection=false}{beamerouterthememiniframes}
-\setbeamerfont{title}{size=\huge}
-\setbeamertemplate{itemize item}{$\bullet$}
-\setbeamertemplate{bibliography item}[text]
-%gets rid of bottom navigation bars
-\setbeamertemplate{footline}[page number]{}
-\setbeamertemplate{navigation symbols}{}
-\setbeamertemplate{frametitle}{
-    \begin{center}
-        \insertframetitle
-        \par
-    \end{center}
-}
+\input{texa/beamer}
+\input{texa/mint}
 
 \usepackage{etoolbox}
 \makeatletter
@@ -27,9 +15,9 @@
 \AtBeginSection[]{
     \begin{frame}{Outline}
         \begin{columns}
-            \begin{column}{0.4\textwidth}
+            \begin{column}{0.3\textwidth}
             \end{column}
-            \begin{column}{0.6\textwidth}
+            \begin{column}{0.7\textwidth}
                 \tableofcontents[currentsection, hideallsubsections] 
             \end{column}
         \end{columns}
@@ -39,9 +27,6 @@
 %footnote
 \usepackage{url}
 \newcommand{\footurl}[1]{\footnote{\url{#1}}}
-
-%code
-\input{mint}
 
 % figure
 \usepackage{graphicx}
@@ -58,12 +43,15 @@
 \newcommand{\fname}[1]{\texttt{#1}}
 
 \title{Modern C++ Coding}
+\subtitle{memory management}
 \author{answeror@gmail.com}
 \date{2013-11-30}
 
 \begin{document}
 
 \frame{\titlepage}
+
+\input{download}
 
 \begin{frame}
     \begin{quote}
@@ -75,8 +63,6 @@
     \end{quote}
 \end{frame}
 
-\section{内存管理}
-
 \begin{frame}
     \begin{quote}
         C++ is the best language for garbage collection principally because it creates less garbage.
@@ -86,7 +72,7 @@
 \end{frame}
 
 \newcommand{\smartpointer}{智能指针(smart pointer)}
-\subsection{\smartpointer}
+\section{\smartpointer}
 
 \begin{frame}{\smartpointer}
     \begin{center}
@@ -166,7 +152,7 @@ auto even = irange<int>(0, 10) | filtered([](int x){
 \end{frame}
 
 \newcommand{\handle}{句柄(handle)}
-\subsection{\handle}
+\section{\handle}
 
 \begin{frame}{\handle\footnote{参见Accelerated C++, 不要与操作系统里的(文件, 窗口等)句柄混淆.}}
     \begin{center}
@@ -203,123 +189,6 @@ auto even = irange<int>(0, 10) | filtered([](int x){
     用户只需要知道类型的(值/共享)语义, 可以用同一套语法来操作其对象(使用点号调用成员, 而不是指针的箭头符号).
 
     对于值语义的对象, 比如\mint{c}/X/, 可以通过\mint{c}/std::move/避免数据拷贝\footnote{但仍需要指针拷贝}.
-\end{frame}
-
-\section{抽象}
-
-\begin{frame}{一切皆为抽象}
-    \begin{itemize}[<+->]
-        \item 编程语言和数学系统的核心皆为抽象.
-        \item 变量, 函数, OOP都是针对各自领域问题的抽象手段.
-        \item OOP经常在不合适的领域被\textcolor{red}{极度}滥用.
-    \end{itemize}
-\end{frame}
-
-\subsection{函数}
-
-\begin{frame}{函数}
-    \begin{itemize}[<+->]
-        \item 在科学计算领域, 函数是最好的抽象手段.\footnote{个人认为}
-        \item (纯)函数\footnote{pure function}易于描述(输入, 输出, 前条件, 后条件).
-        \item (纯)函数易于测试.
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{编码过程}
-    \begin{enumerate}[<+->]
-        \item 首先明确问题(函数)的输入输出.
-        \item 构造数据, 写针对函数的单元测试.
-        \item 分解主函数为多个子函数, 写子函数的单元测试.
-        \item 子函数之间通过函数参数传递状态.
-        \item 若函数参数列表太长\footnote{大于7, 参见代码大全.}, 则将共享参数的函数打包成类.
-    \end{enumerate}
-\end{frame}
-
-\subsection{template}
-
-\begin{frame}{template}
-    \begin{itemize}[<+->]
-        \item duck typing: If it looks like a duck and quacks like a duck, it's a duck.
-        \item C++模板提供了编译期的duck typing手段.
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{duck typing in Python}
-    \inputminted[fontsize=\footnotesize]{python}{mean.py}
-\end{frame}
-
-\begin{frame}{duck typing in C++}
-    \inputminted[fontsize=\footnotesize]{c}{mean.cpp}
-\end{frame}
-
-\begin{frame}{duck typing in C++}
-    \inputminted[fontsize=\footnotesize]{c}{use_mean.cpp}
-\end{frame}
-
-\newcommand{\typeerase}{类型擦除(type erase)}
-\subsection{\typeerase}
-
-\begin{frame}{\typeerase}
-    \begin{itemize}[<+->]
-        \item 有时候模板带来的编译负担太重\footnote{还有源码保密等因素}, 需要借助虚函数减少代码生成.
-        \item 但是我们通常需要组合式的接口(例如sum, size), 使用OOP会造成组合爆炸以及侵入式继承体系.
-    \end{itemize}
-\end{frame}
-
-\subsection{function}
-
-\begin{frame}{C style optimization}
-    \inputminted[fontsize=\footnotesize]{c}{optimize.h}
-    \vskip5mm
-    \pause
-    \begin{itemize}[<+->]
-        \item 只能传递函数指针
-        \item 容易诱使全局变量产生
-        \item 难以并行化
-        \item 解决办法一般是在f签名中增加表示数据的void指针
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{old and bad C++ style optimization}
-    \inputminted[fontsize=\footnotesize]{c}{old_optimize.hpp}
-    \vskip5mm
-    \pause
-    \begin{itemize}[<+->]
-        \item 侵入式, 要求继承\mint{c}/fn/.
-        \item 代码长(Keep it simple, stupid!).
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{template C++ style optimization}
-    \inputminted[fontsize=\footnotesize]{c}{template_optimize.hpp}
-    \vskip5mm
-    \pause
-    \begin{itemize}[<+->]
-        \item 所有实现必须写在头文件里, 编译慢.
-        \item 源码泄漏.
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{modern C++ style optimization}
-    \inputminted[fontsize=\footnotesize]{c}{modern_optimize.hpp}
-\end{frame}
-
-%\subsection{range}
-
-\subsection{Boost.TypeErasure}
-
-\begin{frame}{the core of type erase}
-    \inputminted[fontsize=\footnotesize]{c}{core_te.hpp}
-\end{frame}
-
-\begin{frame}{the core of type erase}
-    \inputminted[fontsize=\footnotesize]{c}{use_core_te.hpp}
-\end{frame}
-
-\begin{frame}{Boost.TypeErasure}
-    \inputminted[fontsize=\footnotesize]{c}{boost_te.hpp}
-    \vskip5mm
-    Boost.TypeErasure提供了组合接口的各种组件. 上面的classifier与之前手工定义的classifier效果完全一样.
 \end{frame}
 
 \begin{frame}
